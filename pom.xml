@@ -1,0 +1,63 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.apache.spark</groupId>
+  <artifactId>CustomCSVInputFormat</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+	
+	<dependencies>
+   	<dependency>
+  		<groupId>org.apache.spark</groupId>
+  			<artifactId>spark-sql_2.12</artifactId>
+            <version>2.4.5</version>
+   	</dependency>
+   	<dependency>
+	   <groupId>org.apache.spark</groupId>
+	   <artifactId>spark-hive_2.12</artifactId>
+	   <version>2.4.5</version>
+	</dependency>
+   	
+	</dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+		            <source>1.6</source>
+		            <target>1.6</target>
+		        </configuration>
+            </plugin>
+        </plugins>  
+    </build>
+    <profiles>  
+ <profile>  
+  <id>code-generator</id>  
+  <build>  
+   <plugins>  
+    <plugin>  
+     <groupId>org.codehaus.mojo</groupId>  
+     <artifactId>exec-maven-plugin</artifactId>  
+     <version>1.1.1</version>  
+     <executions>  
+      <execution>  
+       <phase>test</phase>  
+       <goals>  
+        <goal>java</goal>  
+       </goals>  
+       <configuration>  
+        <mainClass>org.apache.spark.CSVInputFormat</mainClass>  
+        <arguments>  
+         <argument>src/main/resources/Book2.csv</argument>  
+         <argument>Book2</argument> 
+         <argument>local[*]</argument> 
+         <argument>key123</argument>  
+        </arguments>  
+       </configuration>  
+      </execution>  
+     </executions>  
+    </plugin>  
+   </plugins>  
+  </build>  
+ </profile>  
+</profiles> 
+</project>
